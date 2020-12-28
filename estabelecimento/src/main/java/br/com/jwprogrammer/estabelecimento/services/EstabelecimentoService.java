@@ -2,13 +2,13 @@ package br.com.jwprogrammer.estabelecimento.services;
 
 import java.util.Optional;
 
+import org.hibernate.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.jwprogrammer.estabelecimento.domain.Estabelecimento;
 import br.com.jwprogrammer.estabelecimento.repositories.EstabelecimentoRepository;
-import javassist.tools.rmi.ObjectNotFoundException;
 
 @Service
 public class EstabelecimentoService {
@@ -25,7 +25,8 @@ public class EstabelecimentoService {
 
     public Estabelecimento findEstabelecimento(Integer id) throws ObjectNotFoundException {
         Optional<Estabelecimento> estabelecimento = repo.findById(id);
-        return estabelecimento.orElseThrow(() -> new ObjectNotFoundException("Não existe estabelecimento com esse id"));
+        return estabelecimento.orElseThrow(() -> new ObjectNotFoundException(1L,
+                "Não existe estabelecimento com esse id"));
     }
 
     public Estabelecimento updateEstabelecimento(Estabelecimento estabelecimento) throws ObjectNotFoundException {

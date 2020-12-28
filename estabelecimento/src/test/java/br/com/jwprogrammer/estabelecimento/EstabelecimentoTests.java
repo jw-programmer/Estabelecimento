@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Optional;
 
+import org.hibernate.ObjectNotFoundException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -15,7 +16,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import br.com.jwprogrammer.estabelecimento.repositories.EstabelecimentoRepository;
 import br.com.jwprogrammer.estabelecimento.services.EstabelecimentoService;
-import javassist.tools.rmi.ObjectNotFoundException;
 import br.com.jwprogrammer.estabelecimento.domain.Estabelecimento;
 
 @SpringBootTest

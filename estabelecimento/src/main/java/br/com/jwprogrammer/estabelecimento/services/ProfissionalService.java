@@ -25,6 +25,10 @@ public class ProfissionalService {
         return novoProfissional;
     }
 
+    public List<Profissional> findAll() {
+        return repo.findAll();
+    }
+
     @Transactional
 	public Profissional findProfissional(int id) throws ObjectNotFoundException {
 		Optional<Profissional> profissional = repo.findById(id);

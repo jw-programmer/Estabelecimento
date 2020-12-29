@@ -1,5 +1,6 @@
 package br.com.jwprogrammer.estabelecimento.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.hibernate.ObjectNotFoundException;
@@ -26,6 +27,10 @@ public class EstabelecimentoService {
         novoEstabelecimento.setId(null);
         novoEstabelecimento = repo.save(novoEstabelecimento);
         return novoEstabelecimento;
+    }
+
+    public List<Estabelecimento> findAll() {
+        return repo.findAll();
     }
 
     public Estabelecimento findEstabelecimento(Integer id) throws ObjectNotFoundException {

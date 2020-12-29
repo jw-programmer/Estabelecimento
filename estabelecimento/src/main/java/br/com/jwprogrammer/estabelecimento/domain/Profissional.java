@@ -10,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Profissional implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -21,6 +23,7 @@ public class Profissional implements Serializable {
     private String telefoneCelular;
     private String telefoneResidencial;
     @ManyToMany(mappedBy = "profissionais")
+    @JsonIgnore
     private List<Estabelecimento> estabelecimentos = new ArrayList<>();
 
     public Profissional() {

@@ -1,10 +1,13 @@
 package br.com.jwprogrammer.estabelecimento;
 
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 import org.hibernate.ObjectNotFoundException;
@@ -30,13 +33,13 @@ public class ProfissionalTests {
 
     @BeforeEach
     void setUp(){
-        previo = new Profissional(null, "Josias", "Rua x - 124", "15141566", "6965666", null);
+        previo = new Profissional(null, "Josias", "Rua x - 124", "15141566", "6965666");
         repo.save(previo);
     }
 
     @Test
     void ServicoPodeCriarProfissional(){
-        Profissional profissional = new Profissional(null, "Wando", "Rua x - 125", "15141567", "6965646", null);
+        Profissional profissional = new Profissional(null, "Wando", "Rua x - 125", "15141567", "6965646");
         Profissional novo = service.createProfissional(profissional);
         assertNotNull(novo);
 
@@ -53,6 +56,22 @@ public class ProfissionalTests {
         Profissional obj = service.findProfissional(1);
         assertNotNull(obj);
         assertEquals(previo, obj);
+    }
+
+    @Test
+    public void ServicoPesquisaPorfissionalPorNome(){
+        Profissional p2 = new Profissional(null, "Nobre", "Rua x - 125", "15141567", "6965646");
+        Profissional p3 = new Profissional(null, "Vando", "Rua x - 125", "15141567", "6965646");
+
+        repo.saveAll(Arrays.asList(p2, p3));
+
+        Profissional atual3 = service.findProfissional(3);
+
+        List<Profissional> resultados = service.searchProfissionalByName("ando");
+
+        assertEquals(2, resultados.size());
+        assertTrue(resultados.contains(previo));
+        assertTrue(resultados.contains(atual3));
     }
 
     @Test

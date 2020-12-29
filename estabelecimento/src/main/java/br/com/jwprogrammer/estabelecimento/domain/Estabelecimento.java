@@ -38,6 +38,13 @@ public class Estabelecimento implements Serializable {
       this.profissionais = profissionais;
    }
 
+   public Estabelecimento(Integer id, String nome, String endereco, String telefone) {
+      this.id = id;
+      this.nome = nome;
+      this.endereco = endereco;
+      this.telefone = telefone;
+   }
+
    public Integer getId() {
       return id;
    }

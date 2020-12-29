@@ -8,13 +8,18 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.jwprogrammer.estabelecimento.domain.Estabelecimento;
+import br.com.jwprogrammer.estabelecimento.domain.Profissional;
 import br.com.jwprogrammer.estabelecimento.repositories.EstabelecimentoRepository;
+import br.com.jwprogrammer.estabelecimento.repositories.ProfissionalRepository;
 
 @Service
 public class EstabelecimentoService {
 
     @Autowired
     private EstabelecimentoRepository repo;
+
+    @Autowired
+    private ProfissionalRepository profissionalRepo;
 
     @Transactional
     public Estabelecimento createEstabelecimento(Estabelecimento novoEstabelecimento) {
@@ -32,13 +37,20 @@ public class EstabelecimentoService {
     public Estabelecimento updateEstabelecimento(Estabelecimento estabelecimento) throws ObjectNotFoundException {
         Estabelecimento persisted = findEstabelecimento(estabelecimento.getId());
         updateData(persisted, estabelecimento);
-        return persisted;
+        return repo.save(persisted);
     }
-
+    
+    @Transactional
     private void updateData(Estabelecimento novo, Estabelecimento atual) {
         novo.setNome(atual.getNome());
         novo.setTelefone(atual.getTelefone());
         novo.setEndereco(atual.getEndereco());
+        repo.save(novo);
+        novo.getProfissionais().addAll(atual.getProfissionais());
+        for( Profissional p: novo.getProfissionais()){
+            p.getEstabelecimentos().add(novo);
+        }
+        profissionalRepo.saveAll(novo.getProfissionais());
     }
 
     public void deleteEstabelecimento(Integer id) throws ObjectNotFoundException {

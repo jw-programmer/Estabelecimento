@@ -1,10 +1,12 @@
 package br.com.jwprogrammer.estabelecimento;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.Arrays;
 import java.util.Optional;
 
 import org.hibernate.ObjectNotFoundException;
@@ -15,11 +17,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import br.com.jwprogrammer.estabelecimento.repositories.EstabelecimentoRepository;
+import br.com.jwprogrammer.estabelecimento.repositories.ProfissionalRepository;
 import br.com.jwprogrammer.estabelecimento.services.EstabelecimentoService;
 import br.com.jwprogrammer.estabelecimento.domain.Estabelecimento;
+import br.com.jwprogrammer.estabelecimento.domain.Profissional;
 
 @SpringBootTest
-public class EstabelecimentoTests{
+public class EstabelecimentoTests {
 
     @Autowired
     private EstabelecimentoService service;
@@ -27,12 +31,15 @@ public class EstabelecimentoTests{
     @Autowired
     private EstabelecimentoRepository repo;
 
+    @Autowired
+    ProfissionalRepository profissionalRepo;
+
     private Estabelecimento previo;
 
     @BeforeEach
     void onSetUp() {
         System.out.println("Isso é Chamado mais vez");
-        previo = new Estabelecimento(1, "Soares", "Edson Queiros", "8598656", null);
+        previo = new Estabelecimento(1, "Soares", "Edson Queiros", "8598656");
         repo.save(previo);
     }
 
@@ -75,6 +82,23 @@ public class EstabelecimentoTests{
         assertEquals(previo, editado);
         assertEquals(previo.getNome(), editado.getNome());
         assertEquals(previo.getTelefone(), editado.getTelefone());
+    }
+
+    @Test
+    public void ServicoAdicionaProfissionaisAoEstabelecimento() {
+        Profissional p1 = new Profissional(null, "Wando", "Rua 2", "5541541515", "55555555");
+        Profissional p2 = new Profissional(null, "Nando", "Rua 5", "5541542215", "55566655");
+        profissionalRepo.saveAll(Arrays.asList(p1, p2));
+
+        Optional<Profissional> atual1 = profissionalRepo.findById(p1.getId());
+        Optional<Profissional> atual2 = profissionalRepo.findById(p2.getId());
+        previo.getProfissionais().addAll(Arrays.asList(atual1.get(), atual2.get()));
+
+        Estabelecimento atual = service.updateEstabelecimento(previo);
+
+        assertEquals(previo, atual);
+        assertArrayEquals(previo.getProfissionais().toArray(), atual.getProfissionais().toArray());
+
     }
 
     @Test

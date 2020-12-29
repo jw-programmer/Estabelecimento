@@ -37,6 +37,14 @@ public class Profissional implements Serializable {
         this.estabelecimentos = estabelecimentos;
     }
 
+    public Profissional(Integer id, String nome, String endereco, String telefoneCelular, String telefoneResidencial) {
+        this.id = id;
+        this.nome = nome;
+        this.endereco = endereco;
+        this.telefoneCelular = telefoneCelular;
+        this.telefoneResidencial = telefoneResidencial;
+    }
+
     public Integer getId() {
         return id;
     }

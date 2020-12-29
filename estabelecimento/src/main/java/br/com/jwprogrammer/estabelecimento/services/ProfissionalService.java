@@ -1,5 +1,6 @@
 package br.com.jwprogrammer.estabelecimento.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
@@ -24,16 +25,24 @@ public class ProfissionalService {
         return novoProfissional;
     }
 
+    public List<Profissional> findAll() {
+        return repo.findAll();
+    }
+
     @Transactional
 	public Profissional findProfissional(int id) throws ObjectNotFoundException {
 		Optional<Profissional> profissional = repo.findById(id);
         return profissional.orElseThrow(() -> new ObjectNotFoundException(1L, "Não existe profissional com esse id"));
     }
 
+    public List<Profissional> searchProfissionalByName(String nome) {
+		return repo.findByNomeContaining(nome);
+	}
+
 	public Profissional updateProfissional(Profissional profissional) {
 		Profissional persisted = findProfissional(profissional.getId());
         updateData(persisted, profissional);
-        return persisted;
+        return repo.save(persisted);
     }
     
     private void updateData(Profissional profissionalNovo, Profissional profissional){

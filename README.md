@@ -2,29 +2,29 @@
 
 # Sobre
 
-Esta API é um mpv de uma crudo de estabelecimentos e funcinários, interiamente feita em Spring Boot, com java.
+Esta API é um MPV de um crud de estabelecimentos e funcionários feita em Spring Boot com java.
 
 # Configuracao
 
-A aplicação tem dois perfis de teste, dev e test. Dev se conecta com um banco de dados postgresql e test se conecta com um banco h2 em memória, configurado ser populado com dados automáticamente.
+A aplicação tem dois perfis de teste, dev e test. Dev se conecta com um banco de dados postgresql e test se conecta com um banco h2 em memória, configurado para ser populado com dados automáticamente.
 
-Para se conectar com o postgresql, prencha as informações:
+Para se conectar com o postgresql, prencha as informações em **application-dev.properties**:
 
 ```proprerties
-spring.jpa.hibernate.ddl-auto=<colece 'create' para primeira execução para inicar as tabelas e 'none' quando não quiser mais mudanças>
+spring.jpa.hibernate.ddl-auto=<preencha com 'create' para primeira execução para criar as tabelas. Depois preencha com 'none' quando não quiser mais mudanças>
 spring.datasource.url=<url do banco de dados postgresql, exemplo: jdbc:postgresql://localhost:5432/estabelecimentos>
 spring.datasource.username=<usuario do banco exemplo: postgres>
-spring.datasource.password=<senha do banco, exemplo: admin>
+spring.datasource.password=<senha do banco, exemplo: admim>
 ```
 
 ## Endpoints
 
-A aplicação possue 2 endpoints Rest
+A aplicação possui 2 endpoints REST
 
 - estabelecimentos/{id}
 - profissionais/{id}
 
-Cada um dos seus verbos http realiza a operação crud desejada, conforma as praticas REST.
+Cada um dos seus verbos http realiza a operação crud desejada, conforme as praticas REST.
 
 O formato esperado de json para estabelecimento é:
 
@@ -50,9 +50,9 @@ O formato esperado de json para profissional é:
 }
 ```
 
-Para adicionar novos profissionais aos estabelecimentos, basta colocar seus objetos na lista "profissionais" do estabelecimento, e pedir para ser atualizado (Put)
+Para adicionar novos profissionais aos estabelecimentos, basta colocar seus objetos na lista "profissionais" do estabelecimento e pedir para ser atualizado (Put)
 
-Os profissinais possume também o seguinte endpoint:
+Os profissinais possuem também o seguinte endpoint:
 
 * profissionais/search?nome=...
 

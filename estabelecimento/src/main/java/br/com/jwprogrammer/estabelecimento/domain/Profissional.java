@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -23,7 +24,7 @@ public class Profissional implements Serializable {
     private String telefoneCelular;
     private String telefoneResidencial;
     private String funcao;
-    @ManyToMany(mappedBy = "profissionais")
+    @ManyToMany(mappedBy = "profissionais", fetch = FetchType.EAGER)
     @JsonIgnore
     private List<Estabelecimento> estabelecimentos = new ArrayList<>();
 

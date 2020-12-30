@@ -15,6 +15,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.annotation.DirtiesContext.ClassMode;
 
 import br.com.jwprogrammer.estabelecimento.repositories.EstabelecimentoRepository;
 import br.com.jwprogrammer.estabelecimento.repositories.ProfissionalRepository;
@@ -23,6 +25,7 @@ import br.com.jwprogrammer.estabelecimento.domain.Estabelecimento;
 import br.com.jwprogrammer.estabelecimento.domain.Profissional;
 
 @SpringBootTest
+@DirtiesContext(classMode = ClassMode.BEFORE_EACH_TEST_METHOD)
 public class EstabelecimentoTests {
 
     @Autowired
@@ -38,15 +41,13 @@ public class EstabelecimentoTests {
 
     @BeforeEach
     void onSetUp() {
-        System.out.println("Isso é Chamado mais vez");
-        previo = new Estabelecimento(1, "Soares", "Edson Queiros", "8598656");
-        repo.save(previo);
+        previo = new Estabelecimento(null, "Soares", "Edson Queiros", "8598656");
+        previo = repo.save(previo);
     }
 
     @Test
     public void ServicoCriaUmEstabelecimento() throws Exception {
-        Estabelecimento estabelecimento = new Estabelecimento(null, "Cormecio carajas", "Washiton Soares", "32986103",
-                null);
+        Estabelecimento estabelecimento = new Estabelecimento(null, "Cormecio carajas", "Washiton Soares", "32986103");
         Estabelecimento novo = service.createEstabelecimento(estabelecimento);
         assertNotNull(novo);
 
@@ -60,7 +61,7 @@ public class EstabelecimentoTests {
 
     @Test
     public void ServicoRetornaUmEstabelecimento() throws Exception {
-        Estabelecimento obj = service.findEstabelecimento(1);
+        Estabelecimento obj = service.findEstabelecimento(previo.getId());
         assertNotNull(obj);
         assertEquals(previo, obj);
     }
@@ -68,7 +69,7 @@ public class EstabelecimentoTests {
     @Test
     public void ServicoDispareExeccaoDeNaoEncontrado() throws Exception {
         assertThrows(ObjectNotFoundException.class, () -> {
-            service.findEstabelecimento(2);
+            service.findEstabelecimento(99999999);
         });
     }
 
@@ -108,12 +109,6 @@ public class EstabelecimentoTests {
         Optional<Estabelecimento> banco = repo.findById(previo.getId());
 
         assertTrue(banco.isEmpty());
-    }
-
-    @AfterEach
-    void onTearDown() {
-        repo.delete(previo);
-        previo = null;
     }
 
 }

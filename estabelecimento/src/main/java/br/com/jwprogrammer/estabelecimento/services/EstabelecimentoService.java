@@ -38,7 +38,7 @@ public class EstabelecimentoService {
         return estabelecimento.orElseThrow(() -> new ObjectNotFoundException(1L,
                 "Não existe estabelecimento com esse id"));
     }
-
+    
     public Estabelecimento updateEstabelecimento(Estabelecimento estabelecimento) throws ObjectNotFoundException {
         Estabelecimento persisted = findEstabelecimento(estabelecimento.getId());
         updateData(persisted, estabelecimento);

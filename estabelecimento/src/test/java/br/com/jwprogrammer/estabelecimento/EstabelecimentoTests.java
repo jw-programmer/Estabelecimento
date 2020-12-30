@@ -86,8 +86,8 @@ public class EstabelecimentoTests {
 
     @Test
     public void ServicoAdicionaProfissionaisAoEstabelecimento() {
-        Profissional p1 = new Profissional(null, "Wando", "Rua 2", "5541541515", "55555555");
-        Profissional p2 = new Profissional(null, "Nando", "Rua 5", "5541542215", "55566655");
+        Profissional p1 = new Profissional(null, "Wando", "Rua 2", "5541541515", "55555555", "vendas");
+        Profissional p2 = new Profissional(null, "Nando", "Rua 5", "5541542215", "55566655", "estoque");
         profissionalRepo.saveAll(Arrays.asList(p1, p2));
 
         Optional<Profissional> atual1 = profissionalRepo.findById(p1.getId());

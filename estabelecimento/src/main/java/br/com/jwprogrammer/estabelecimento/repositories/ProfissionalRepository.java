@@ -9,6 +9,6 @@ import br.com.jwprogrammer.estabelecimento.domain.Profissional;
 
 @Repository
 public interface ProfissionalRepository extends JpaRepository<Profissional, Integer> {
-    
+
     List<Profissional> findByNomeContaining(String nome);
 }

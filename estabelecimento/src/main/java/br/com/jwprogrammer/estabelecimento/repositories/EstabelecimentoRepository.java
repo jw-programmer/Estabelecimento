@@ -7,5 +7,5 @@ import br.com.jwprogrammer.estabelecimento.domain.Estabelecimento;
 
 @Repository
 public interface EstabelecimentoRepository extends JpaRepository<Estabelecimento, Integer> {
-    
+
 }

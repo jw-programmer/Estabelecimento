@@ -25,23 +25,24 @@ import br.com.jwprogrammer.estabelecimento.services.ProfissionalService;
 @SpringBootTest
 @DirtiesContext(classMode = ClassMode.BEFORE_EACH_TEST_METHOD)
 public class ProfissionalTests {
-    
+
     @Autowired
     private ProfissionalService service;
 
-    @Autowired ProfissionalRepository repo;
+    @Autowired
+    ProfissionalRepository repo;
 
     private Profissional previo;
 
     @BeforeEach
-    void setUp(){
-        previo = new Profissional(null, "Josias", "Rua x - 124", "15141566", "6965666","T.I");
+    void setUp() {
+        previo = new Profissional(null, "Josias", "Rua x - 124", "15141566", "6965666", "T.I");
         previo = repo.save(previo);
     }
 
     @Test
-    void ServicoPodeCriarProfissional(){
-        Profissional profissional = new Profissional(null, "Wando", "Rua x - 125", "15141567", "6965646","vendas");
+    void ServicoPodeCriarProfissional() {
+        Profissional profissional = new Profissional(null, "Wando", "Rua x - 125", "15141567", "6965646", "vendas");
         Profissional novo = service.createProfissional(profissional);
         assertNotNull(novo);
 
@@ -61,12 +62,12 @@ public class ProfissionalTests {
     }
 
     @Test
-    public void ServicoPesquisaPorfissionalPorNome(){
-        Profissional p2 = new Profissional(null, "Wando", "Rua x - 125", "15141567", "6965646","Estoque");
-        Profissional p3 = new Profissional(null, "Vando", "Rua x - 125", "15141567", "6965646","Gerente");
+    public void ServicoPesquisaPorfissionalPorNome() {
+        Profissional p2 = new Profissional(null, "Wando", "Rua x - 125", "15141567", "6965646", "Estoque");
+        Profissional p3 = new Profissional(null, "Vando", "Rua x - 125", "15141567", "6965646", "Gerente");
 
         List<Profissional> atuais = repo.saveAll(Arrays.asList(p2, p3));
-        
+
         List<Profissional> resultados = service.searchProfissionalByName("ando");
 
         assertTrue(resultados.contains(atuais.get(0)));
@@ -80,7 +81,6 @@ public class ProfissionalTests {
             service.findProfissional(66526526);
         });
     }
-
 
     @Test
     public void ServicoEditaUmProfissional() throws Exception {

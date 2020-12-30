@@ -32,8 +32,8 @@ public class Profissional implements Serializable {
 
     }
 
-    public Profissional(Integer id, String nome, String endereco, String telefoneCelular, String telefoneResidencial, String funcao,
-            List<Estabelecimento> estabelecimentos) {
+    public Profissional(Integer id, String nome, String endereco, String telefoneCelular, String telefoneResidencial,
+            String funcao, List<Estabelecimento> estabelecimentos) {
         this.id = id;
         this.nome = nome;
         this.endereco = endereco;
@@ -43,7 +43,8 @@ public class Profissional implements Serializable {
         this.estabelecimentos = estabelecimentos;
     }
 
-    public Profissional(Integer id, String nome, String endereco, String telefoneCelular, String telefoneResidencial, String funcao) {
+    public Profissional(Integer id, String nome, String endereco, String telefoneCelular, String telefoneResidencial,
+            String funcao) {
         this.id = id;
         this.nome = nome;
         this.endereco = endereco;
@@ -100,7 +101,6 @@ public class Profissional implements Serializable {
         this.estabelecimentos = estabelecimentos;
     }
 
-    
     public String getFuncao() {
         return funcao;
     }

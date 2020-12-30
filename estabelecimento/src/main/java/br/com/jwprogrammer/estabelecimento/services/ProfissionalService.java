@@ -30,22 +30,22 @@ public class ProfissionalService {
     }
 
     @Transactional
-	public Profissional findProfissional(int id) throws ObjectNotFoundException {
-		Optional<Profissional> profissional = repo.findById(id);
+    public Profissional findProfissional(int id) throws ObjectNotFoundException {
+        Optional<Profissional> profissional = repo.findById(id);
         return profissional.orElseThrow(() -> new ObjectNotFoundException(1L, "Não existe profissional com esse id"));
     }
 
     public List<Profissional> searchProfissionalByName(String nome) {
-		return repo.findByNomeContaining(nome);
-	}
+        return repo.findByNomeContaining(nome);
+    }
 
-	public Profissional updateProfissional(Profissional profissional) {
-		Profissional persisted = findProfissional(profissional.getId());
+    public Profissional updateProfissional(Profissional profissional) {
+        Profissional persisted = findProfissional(profissional.getId());
         updateData(persisted, profissional);
         return repo.save(persisted);
     }
-    
-    private void updateData(Profissional profissionalNovo, Profissional profissional){
+
+    private void updateData(Profissional profissionalNovo, Profissional profissional) {
         profissionalNovo.setNome(profissional.getNome());
         profissionalNovo.setEndereco(profissional.getEndereco());
         profissionalNovo.setTelefoneResidencial(profissional.getTelefoneResidencial());
@@ -53,9 +53,9 @@ public class ProfissionalService {
         profissionalNovo.setFuncao(profissional.getFuncao());
     }
 
-	public void deleteProfissional(Integer id) {
+    public void deleteProfissional(Integer id) {
         findProfissional(id);
         repo.deleteById(id);
-	}
-    
+    }
+
 }

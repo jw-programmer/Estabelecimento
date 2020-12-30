@@ -29,20 +29,20 @@ public class EstabelecimentoResouce {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<Estabelecimento> findById( @PathVariable Integer id) {
+    public ResponseEntity<Estabelecimento> findById(@PathVariable Integer id) {
         Estabelecimento obj = service.findEstabelecimento(id);
         return ResponseEntity.ok().body(obj);
     }
-    
+
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Void> CreateEstabelecimento( @RequestBody Estabelecimento estabelecimento) {
+    public ResponseEntity<Void> CreateEstabelecimento(@RequestBody Estabelecimento estabelecimento) {
         Estabelecimento obj = service.createEstabelecimento(estabelecimento);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
         return ResponseEntity.created(uri).build();
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<Estabelecimento> updateById( @RequestBody  Estabelecimento obj, @PathVariable Integer id) {
+    public ResponseEntity<Estabelecimento> updateById(@RequestBody Estabelecimento obj, @PathVariable Integer id) {
         obj.setId(id);
         obj = service.updateEstabelecimento(obj);
         return ResponseEntity.noContent().build();

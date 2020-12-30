@@ -35,16 +35,16 @@ public class EstabelecimentoService {
 
     public Estabelecimento findEstabelecimento(Integer id) throws ObjectNotFoundException {
         Optional<Estabelecimento> estabelecimento = repo.findById(id);
-        return estabelecimento.orElseThrow(() -> new ObjectNotFoundException(1L,
-                "Não existe estabelecimento com esse id"));
+        return estabelecimento
+                .orElseThrow(() -> new ObjectNotFoundException(1L, "Não existe estabelecimento com esse id"));
     }
-    
+
     public Estabelecimento updateEstabelecimento(Estabelecimento estabelecimento) throws ObjectNotFoundException {
         Estabelecimento persisted = findEstabelecimento(estabelecimento.getId());
         updateData(persisted, estabelecimento);
         return repo.save(persisted);
     }
-    
+
     @Transactional
     private void updateData(Estabelecimento novo, Estabelecimento atual) {
         novo.setNome(atual.getNome());
@@ -52,7 +52,7 @@ public class EstabelecimentoService {
         novo.setEndereco(atual.getEndereco());
         repo.save(novo);
         novo.getProfissionais().addAll(atual.getProfissionais());
-        for( Profissional p: novo.getProfissionais()){
+        for (Profissional p : novo.getProfissionais()) {
             p.getEstabelecimentos().add(novo);
         }
         profissionalRepo.saveAll(novo.getProfissionais());

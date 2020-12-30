@@ -10,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Profissional implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -20,28 +22,32 @@ public class Profissional implements Serializable {
     private String endereco;
     private String telefoneCelular;
     private String telefoneResidencial;
+    private String funcao;
     @ManyToMany(mappedBy = "profissionais")
+    @JsonIgnore
     private List<Estabelecimento> estabelecimentos = new ArrayList<>();
 
     public Profissional() {
 
     }
 
-    public Profissional(Integer id, String nome, String endereco, String telefoneCelular, String telefoneResidencial,
+    public Profissional(Integer id, String nome, String endereco, String telefoneCelular, String telefoneResidencial, String funcao,
             List<Estabelecimento> estabelecimentos) {
         this.id = id;
         this.nome = nome;
         this.endereco = endereco;
         this.telefoneCelular = telefoneCelular;
         this.telefoneResidencial = telefoneResidencial;
+        this.funcao = funcao;
         this.estabelecimentos = estabelecimentos;
     }
 
-    public Profissional(Integer id, String nome, String endereco, String telefoneCelular, String telefoneResidencial) {
+    public Profissional(Integer id, String nome, String endereco, String telefoneCelular, String telefoneResidencial, String funcao) {
         this.id = id;
         this.nome = nome;
         this.endereco = endereco;
         this.telefoneCelular = telefoneCelular;
+        this.funcao = funcao;
         this.telefoneResidencial = telefoneResidencial;
     }
 
@@ -91,6 +97,15 @@ public class Profissional implements Serializable {
 
     public void setEstabelecimentos(List<Estabelecimento> estabelecimentos) {
         this.estabelecimentos = estabelecimentos;
+    }
+
+    
+    public String getFuncao() {
+        return funcao;
+    }
+
+    public void setFuncao(String funcao) {
+        this.funcao = funcao;
     }
 
     @Override

@@ -50,6 +50,7 @@ public class ProfissionalService {
         profissionalNovo.setEndereco(profissional.getEndereco());
         profissionalNovo.setTelefoneResidencial(profissional.getTelefoneResidencial());
         profissionalNovo.setTelefoneCelular(profissional.getTelefoneCelular());
+        profissionalNovo.setFuncao(profissional.getFuncao());
     }
 
 	public void deleteProfissional(Integer id) {

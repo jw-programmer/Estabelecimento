@@ -1,6 +1,5 @@
 package br.com.jwprogrammer.estabelecimento;
 
-import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -33,13 +32,13 @@ public class ProfissionalTests {
 
     @BeforeEach
     void setUp(){
-        previo = new Profissional(null, "Josias", "Rua x - 124", "15141566", "6965666");
-        repo.save(previo);
+        this.previo = new Profissional(null, "Josias", "Rua x - 124", "15141566", "6965666","T.I");
+        repo.save(this.previo);
     }
 
     @Test
     void ServicoPodeCriarProfissional(){
-        Profissional profissional = new Profissional(null, "Wando", "Rua x - 125", "15141567", "6965646");
+        Profissional profissional = new Profissional(null, "Wando", "Rua x - 125", "15141567", "6965646","vendas");
         Profissional novo = service.createProfissional(profissional);
         assertNotNull(novo);
 
@@ -60,8 +59,8 @@ public class ProfissionalTests {
 
     @Test
     public void ServicoPesquisaPorfissionalPorNome(){
-        Profissional p2 = new Profissional(null, "Nobre", "Rua x - 125", "15141567", "6965646");
-        Profissional p3 = new Profissional(null, "Vando", "Rua x - 125", "15141567", "6965646");
+        Profissional p2 = new Profissional(null, "Nobre", "Rua x - 125", "15141567", "6965646","Estoque");
+        Profissional p3 = new Profissional(null, "Vando", "Rua x - 125", "15141567", "6965646","Gerente");
 
         repo.saveAll(Arrays.asList(p2, p3));
 
